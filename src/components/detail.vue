@@ -15,23 +15,23 @@
             <div class="goods-box clearfix">
               <div class="pic-box"></div>
               <div class="goods-spec">
-                <h1>华为（HUAWEI）荣耀6Plus 16G双4G版</h1>
-                <p class="subtitle">双800万摄像头，八核，安卓智能手机）荣耀6plus</p>
+                <h1>{{goodsinfo.title}}</h1>
+                <p class="subtitle">{{goodsinfo.sub_title}}</p>
                 <div class="spec-box">
                   <dl>
                     <dt>货号</dt>
-                    <dd id="commodityGoodsNo">SD9102356032</dd>
+                    <dd id="commodityGoodsNo">{{goodsinfo.goods_no}}</dd>
                   </dl>
                   <dl>
                     <dt>市场价</dt>
                     <dd>
-                      <s id="commodityMarketPrice">¥2499</s>
+                      <s id="commodityMarketPrice">¥{{goodsinfo.market_price}}</s>
                     </dd>
                   </dl>
                   <dl>
                     <dt>销售价</dt>
                     <dd>
-                      <em id="commoditySellPrice" class="price">¥2195</em>
+                      <em id="commoditySellPrice" class="price">¥{{goodsinfo.sell_price}}</em>
                     </dd>
                   </dl>
                 </div>
@@ -72,7 +72,7 @@
                       </div>
                       <span class="stock-txt">
                         库存
-                        <em id="commodityStockNum">60</em>件
+                        <em id="commodityStockNum">{{goodsinfo.stock_quantity}}</em>件
                       </span>
                     </dd>
                   </dl>
@@ -93,17 +93,19 @@
                 class="tab-head"
                 style="position: static; top: 517px; width: 925px;"
               >
+              <!-- tab-bar -->
                 <ul>
                   <li>
-                    <a href="javascript:;" class="selected">商品介绍</a>
+                    <a @click="index=1" :class="{selected:index==1}" href="javascript:;">商品介绍</a>
                   </li>
                   <li>
-                    <a href="javascript:;">商品评论</a>
+                    <a @click="index=2" :class="{selected:index==2}" href="javascript:;">商品评论</a>
                   </li>
                 </ul>
               </div>
-              <div class="tab-content entry" style="display: block;">内容</div>
-              <div class="tab-content" style="display: block;">
+              <!-- 内容 -->
+              <div class="tab-content entry" v-show="index==1">内容</div>
+              <div class="tab-content" v-show="index==2">
                 <div class="comment-box">
                   <div id="commentForm" name="commentForm" class="form-box">
                     <div class="avatar-box">
@@ -313,7 +315,8 @@ export default {
         }`
       )
       .then(res => {
-        console.log(res);
+        // console.log(res);
+        this.goodsinfo=res.data.message.goodsinfo
       });
   }
 };
